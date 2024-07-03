@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import projet.core.data.entities.Declaration;
 import projet.core.data.entities.Professeur;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
@@ -17,7 +18,7 @@ public class DeclarationResponseDto {
     private Long id;
     private Long userId;
     private Long seanceId;
-    private Date date;
+    private String date;
     private String titre;
     private String cours;
     private String email;
@@ -31,12 +32,13 @@ public class DeclarationResponseDto {
         if (declaration.getUser().getClass()== Professeur.class){
             title = "Professeur";
         }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         return DeclarationResponseDto
                 .builder()
                 .id(declaration.getId())
                 .userId(declaration.getUser().getId())
                 .seanceId(declaration.getSeance().getId())
-                .date(declaration.getCreatedAt())
+                .date(sdf.format(declaration.getCreatedAt()))
                 .titre(title)
                 .cours(declaration.getSeance().getCours().getModule().getLibelle())
                 .email(declaration.getUser().getLogin())

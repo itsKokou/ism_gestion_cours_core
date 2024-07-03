@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import projet.core.data.entities.Classe;
-import projet.core.data.entities.Filiere;
-import projet.core.data.entities.Niveau;
+import projet.core.data.entities.*;
+import projet.core.data.entities.Module;
 import projet.core.data.repositories.ClasseRepository;
 import projet.core.services.ClasseService;
 
@@ -33,8 +32,13 @@ public class ClasseServiceImpl implements ClasseService {
     }
 
     @Override
-    public Page<Classe> getAllByNiveauAndFiliere(Pageable pageable, Niveau niveau, Filiere filiere) {
-        return classeRepository.findByNiveauAndFiliere(niveau, filiere,pageable);
+    public Page<Classe> getAllByNiveauAndFiliereAndPlanned(Pageable pageable, Niveau niveau, Filiere filiere,Boolean planned) {
+        return classeRepository.findByNiveauAndFiliereAndPlanned(niveau, filiere,planned,pageable);
+    }
+
+    @Override
+    public Page<Classe> getByProfesseurAndModuleAndSemestre(Professeur professeur, Module module, Semestre semestre, Pageable pageable) {
+        return classeRepository.findByProfesseurAndModuleAndSemestreNiveau(professeur, module, semestre.getNiveau(),pageable);
     }
 
 }

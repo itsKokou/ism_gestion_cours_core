@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import projet.core.data.entities.Classe;
-import projet.core.data.entities.Inscription;
-import projet.core.data.entities.Seance;
+import projet.core.data.entities.*;
 import projet.core.data.repositories.SeanceRepository;
 import projet.core.services.SeanceService;
 
@@ -38,6 +36,16 @@ public class SeanceServiceImpl implements SeanceService {
     @Override
     public List<Seance> getAllByClasse(Classe classe) {
         return seanceRepository.findAllByClasse(classe);
+    }
+
+    @Override
+    public List<Seance> getAllByClasseAndProfesseur(Classe classe, Professeur professeur) {
+        return seanceRepository.findAllByClasseAndProfesseur(classe, professeur);
+    }
+
+    @Override
+    public List<Seance> getAllBySalle(Salle salle) {
+        return seanceRepository.findAllBySalleAndCours_AnneeScolaire_IsActiveTrue(salle);
     }
 
     @Override

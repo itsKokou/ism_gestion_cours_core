@@ -8,6 +8,7 @@ import projet.core.data.entities.AnneeScolaire;
 import projet.core.data.entities.Etudiant;
 import projet.core.data.entities.Seance;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface AbsenceRepository extends JpaRepository<Absence,Long> {

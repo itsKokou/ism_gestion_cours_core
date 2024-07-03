@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import projet.core.data.entities.Niveau;
 import projet.core.data.entities.Semestre;
 import projet.core.data.repositories.SemestreRepository;
 import projet.core.services.SemestreService;
@@ -28,5 +29,10 @@ public class SemestreServiceImpl implements SemestreService {
     @Override
     public Optional<Semestre> show(Long dataID) {
         return semestreRepository.findById(dataID);
+    }
+
+    @Override
+    public Semestre getSemestreActuelleByNiveau(Niveau niveau) {
+        return semestreRepository.findSemestreByIsActiveTrueAndNiveau(niveau);
     }
 }

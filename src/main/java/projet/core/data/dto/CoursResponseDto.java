@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import projet.core.data.entities.Classe;
 import projet.core.data.entities.Cours;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Data
@@ -15,7 +16,7 @@ import java.util.Date;
 @Builder
 public class CoursResponseDto {
     private Long id;
-    private Date date;
+    private String date;
     private String module;
     private String professeur;
     private String classes;
@@ -30,10 +31,11 @@ public class CoursResponseDto {
         for (Classe classe : cours.getClasses()){
             classes += "-" + classe.getLibelle()+" ";
         }
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         return CoursResponseDto
                 .builder()
                 .id(cours.getId())
-                .date(cours.getCreatedAt())
+                .date(sdf.format(cours.getCreatedAt()))
                 .module(cours.getModule().getLibelle())
                 .professeur(cours.getProfesseur().getNomComplet())
                 .classes(classes)

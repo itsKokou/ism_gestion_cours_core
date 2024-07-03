@@ -23,7 +23,7 @@ public class Inscription extends AbstractEntity{
     @ManyToOne
     @JoinColumn(nullable = false)
     private AnneeScolaire anneeScolaire;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(nullable = false)
     private Etudiant etudiant;
     @ManyToOne

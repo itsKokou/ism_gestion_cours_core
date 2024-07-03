@@ -5,7 +5,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import projet.core.data.entities.AppUser;
 import projet.core.data.entities.Declaration;
+import projet.core.data.entities.Seance;
 import projet.core.data.enums.EtatDeclaration;
 
 public interface DeclarationRepository extends JpaRepository<Declaration,Long> {
@@ -17,9 +19,21 @@ public interface DeclarationRepository extends JpaRepository<Declaration,Long> {
             "JOIN s.cours c "+
             "WHERE d.etat = :etat "+
             "AND c.anneeScolaire.isActive = true "+
-            "AND r.roleName = 'ROLE_ETUDIANT'"
+            "AND r.roleName = :roleName"
 
     )
-    Page<Declaration> findEtudiantDeclarationsByEtat(@Param("etat") EtatDeclaration etat,
-                                             Pageable pageable);
+    Page<Declaration> findDeclarationsByEtatAndUserRole(@Param("etat") EtatDeclaration etat,
+                                                     @Param("roleName") String roleName,
+                                                     Pageable pageable);
+
+    @Query("SELECT d FROM Declaration d "+
+            "JOIN d.seance s "+
+            "JOIN d.user u "+
+            "JOIN s.cours c "+
+            "WHERE c.anneeScolaire.isActive = true "+
+            "AND c.professeur = :user"
+    )
+    Page<Declaration> findDeclarationsByUser(@Param("user") AppUser user, Pageable pageable);
+
+    Declaration findDeclarationsByUserAndSeance(AppUser user, Seance seance);
 }

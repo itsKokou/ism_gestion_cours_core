@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import projet.core.data.entities.AppUser;
 import projet.core.data.entities.Declaration;
+import projet.core.data.entities.Seance;
 import projet.core.data.enums.EtatDeclaration;
 import projet.core.data.repositories.DeclarationRepository;
 import projet.core.services.DeclarationService;
@@ -33,7 +35,17 @@ public class DeclarationServiceImpl implements DeclarationService {
     }
 
     @Override
-    public Page<Declaration> getEtudiantDeclarationsByEtat(EtatDeclaration etat, Pageable pageable) {
-        return declarationRepository.findEtudiantDeclarationsByEtat(etat,pageable);
+    public Page<Declaration> getDeclarationsByEtatAndUserRole(EtatDeclaration etat, String roleName, Pageable pageable) {
+        return declarationRepository.findDeclarationsByEtatAndUserRole(etat, roleName, pageable);
+    }
+
+    @Override
+    public Page<Declaration> getDeclarationsByUser(AppUser user, Pageable pageable) {
+        return declarationRepository.findDeclarationsByUser(user, pageable);
+    }
+
+    @Override
+    public Declaration getDeclarationsByUserAndSeance(AppUser user, Seance seance) {
+        return declarationRepository.findDeclarationsByUserAndSeance(user,seance);
     }
 }

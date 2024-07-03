@@ -11,6 +11,7 @@ import projet.core.data.entities.Inscription;
 import projet.core.data.repositories.InscriptionRepository;
 import projet.core.services.InscriptionService;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -40,7 +41,18 @@ public class InscriptionServiceImpl implements InscriptionService {
     }
 
     @Override
+    public Page<Inscription> getAllByAnneAndClasse(AnneeScolaire anneeScolaire, Classe classe, Pageable pageable) {
+        return inscriptionRepository.findAllByAnneeAndClasse(anneeScolaire,classe,pageable);
+    }
+
+    @Override
     public Optional<Inscription> getByAndAnneeScolaireAndEtudiant(AnneeScolaire anneeScolaire, Etudiant etudiant) {
         return inscriptionRepository.findByIsArchivedFalseAndAnneeScolaireAndEtudiant(anneeScolaire,etudiant);
     }
+
+    @Override
+    public Page<Inscription> getAllByAnneeAndClasseAndDate(AnneeScolaire anneeScolaire, Classe classe, Date date, Pageable pageable) {
+        return inscriptionRepository.findAllByAnneeAndClasseAndDate(anneeScolaire, classe, date, pageable);
+    }
+
 }

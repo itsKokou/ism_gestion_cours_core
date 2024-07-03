@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "annee_scolaires")
 @Builder
 public class AnneeScolaire extends AbstractEntity{
-    @Column(nullable = false, columnDefinition = "boolean default true")
+    @Column(nullable = false, columnDefinition = "boolean default false")
     private Boolean isActive;
     @Column(length = 20, nullable = false, unique = true)
     private String libelle;

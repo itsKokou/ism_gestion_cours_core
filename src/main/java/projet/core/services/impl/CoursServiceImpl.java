@@ -4,8 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import projet.core.data.entities.AnneeScolaire;
-import projet.core.data.entities.Cours;
+import projet.core.data.entities.*;
 import projet.core.data.enums.EtatCours;
 import projet.core.data.repositories.CoursRepository;
 import projet.core.services.CoursService;
@@ -40,5 +39,15 @@ public class CoursServiceImpl implements CoursService {
     @Override
     public Page<Cours> getAllByAnneeAndEtat(Pageable pageable, AnneeScolaire anneeScolaire, EtatCours etatCours) {
         return coursRepository.findAllByIsArchivedFalseAndAnneeScolaireAndEtat(anneeScolaire,etatCours,pageable);
+    }
+
+    @Override
+    public Page<Cours> getAllByAnneeAndEtatAndSemestreAndClasseAndProf(AnneeScolaire anneeScolaire, EtatCours etat, Semestre semestre, Classe classe,Professeur prof, Pageable pageable) {
+        return coursRepository.findAllByAnneeAndEtatAndSemestreAndClasseAndProf(anneeScolaire,etat,semestre,classe,prof,pageable);
+    }
+
+    @Override
+    public Page<Cours> getAllByProfesseur(Professeur professeur, Pageable pageable) {
+        return coursRepository.findCoursByAnneeScolaireIsActiveTrueAndProfesseur(professeur,pageable);
     }
 }

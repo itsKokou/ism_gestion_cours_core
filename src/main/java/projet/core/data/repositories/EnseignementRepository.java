@@ -24,4 +24,6 @@ public interface EnseignementRepository extends JpaRepository<Enseignement,Long>
             "AND e.professeur = :professeur " +
             "AND e.anneeScolaire.isActive = true")
     Page<Module> findModuleByProfesseur(@Param("professeur") Professeur professeur, Pageable pageable);
+    Enseignement findByClasseAndProfesseurAndAnneeScolaireIsActiveTrue(Classe classe, Professeur professeur);
+
 }

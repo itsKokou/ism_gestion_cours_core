@@ -8,6 +8,7 @@ import projet.core.data.entities.Etudiant;
 import projet.core.data.repositories.EtudiantRepository;
 import projet.core.services.EtudiantService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,5 +35,10 @@ public class EtudiantServiceImpl implements EtudiantService {
     @Override
     public Optional<Etudiant> getEtudiantByMatricule(String matricule) {
         return etudiantRepository.findEtudiantByMatricule(matricule);
+    }
+
+    @Override
+    public List<Etudiant> getEtudiantWithAbsence() {
+        return etudiantRepository.findEtudiantWithAbsence();
     }
 }

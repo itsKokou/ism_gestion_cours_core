@@ -13,6 +13,8 @@ import projet.core.data.entities.Semestre;
 public class SemestreResponseDto {
     private Long id;
     private String libelle;
+    private Boolean isActive;
+    private NiveauResponseDto niveau;
 
     public static SemestreResponseDto toDto(Semestre semestre) {
 
@@ -20,6 +22,8 @@ public class SemestreResponseDto {
                 .builder()
                 .id(semestre.getId())
                 .libelle(semestre.getLibelle())
+                .isActive(semestre.getIsActive())
+                .niveau(NiveauResponseDto.toDto(semestre.getNiveau()))
                 .build();
 
     }

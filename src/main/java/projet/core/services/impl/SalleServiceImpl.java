@@ -30,4 +30,9 @@ public class SalleServiceImpl implements SalleService {
     public Optional<Salle> show(Long dataID) {
         return salleRepository.findById(dataID);
     }
+
+    @Override
+    public Page<Salle> getAllByPlanned(Boolean planned, Pageable pageable) {
+        return salleRepository.findAllByIsArchivedFalseAndIsPlanned(pageable,planned);
+    }
 }

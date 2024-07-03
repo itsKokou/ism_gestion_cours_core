@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import projet.core.data.entities.Classe;
+import projet.core.data.entities.Enseignement;
 import projet.core.data.entities.Module;
 import projet.core.data.entities.Professeur;
 import projet.core.data.repositories.EnseignementRepository;
@@ -42,8 +43,8 @@ public class ProfesseurServiceImpl implements ProfesseurService {
     }
 
     @Override
-    public Page<Professeur> getAllByGradeAndPortable(String grade, String portable, Pageable pageable) {
-        return professeurRepository.findAllByGradeAndPortable(grade,portable,pageable);
+    public Page<Professeur> getAllByGradeAndPortableAndPlanned(String grade, String portable,Boolean planned, Pageable pageable) {
+        return professeurRepository.findAllByGradeAndPortableAndPlanned(grade,portable,planned,pageable);
     }
 
     @Override
@@ -54,5 +55,25 @@ public class ProfesseurServiceImpl implements ProfesseurService {
     @Override
     public Page<Classe> getClasseByProfesseur(Professeur professeur, Pageable pageable) {
         return enseignementRepository.findClasseByProfesseur(professeur,pageable);
+    }
+
+    @Override
+    public Page<Professeur> getAllByModuleAndGradeAndPortable(Module module, String grade, String portable,Pageable pageable) {
+        return professeurRepository.findAllByModuleAndGradeAndPortable(module,grade,portable,pageable);
+    }
+
+    @Override
+    public Enseignement saveEnseignement(Enseignement enseignement) {
+        return enseignementRepository.save(enseignement);
+    }
+
+    @Override
+    public Enseignement getByClasseAndProfesseurAndAnneeScolaireActuelle(Classe classe, Professeur professeur) {
+        return enseignementRepository.findByClasseAndProfesseurAndAnneeScolaireIsActiveTrue(classe,professeur);
+    }
+
+    @Override
+    public Page<Professeur> getAllByModule(Module module, Pageable pageable) {
+        return professeurRepository.findAllByModule(module,pageable);
     }
 }
